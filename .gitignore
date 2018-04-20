@@ -2,6 +2,7 @@
 
 # idea
 vcs.xml
+workspace.xml
 
 # dependencies
 /node_modules
