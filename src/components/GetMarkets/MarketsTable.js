@@ -33,7 +33,7 @@ const MarketsTable = (props) => {
 						<td><span>{market.BaseCurrency}</span></td>
 						<td><span>{market.BaseCurrencyCode}</span></td>
 						<td><span>{market.BaseCurrencyID}</span></td>
-						<td><span>{market.Active}</span></td>
+						<td><span>{market.Active.toString()}</span></td>
 					</tr>
 				))}
 				</tbody>
