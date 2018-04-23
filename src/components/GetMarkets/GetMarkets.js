@@ -1,7 +1,7 @@
 import React from 'react'
 import { API_URL } from '../../config'
-import response from './getmarkets'
-import '../common/Table.css'
+import MarketsTable from './MarketsTable'
+import apiJsonFile from './getmarkets.json'
 
 class GetMarkets extends React.Component {
 	constructor() {
@@ -27,52 +27,24 @@ class GetMarkets extends React.Component {
 					result: response.result,
 				})
 			})
+			.catch(error => {
+				console.log("Could not Load from API: Probable XSS/CORS Fault\n" + error);
+				this.setState({
+					success: 0,
+					message: "Unable to Query Endpoint - Using Static JSON from File",
+				})
+			})
 	}
 
 	render() {
-		// const { success, message, result } = this.state;
-		const { success, message, result } = response;
-
-		if (message.length > 0)
-			return <div className="error">{message}</div>;
-
-		if (success === "1")
+		if (this.state.success)
+			return <MarketsTable result={this.state.result}/>;
+		else
 			return (
-				<div className="Table-container">
-					<table className="Table">
-						<thead className="Table-head">
-						<tr>
-							<th>MarketID</th>
-							<th>MarketAssetName</th>
-							<th>MarketAssetCode</th>
-							<th>MarketAssetID</th>
-							<th>MarketAssetType</th>
-							<th>BaseCurrency</th>
-							<th>BaseCurrencyCode</th>
-							<th>BaseCurrencyID</th>
-							<th>Active</th>
-						</tr>
-						</thead>
-						<tbody className="Table-body">
-						{result.map(market => (
-							<tr key={market.MarketID}>
-								<td><span>{market.MarketID}</span></td>
-								<td><span>{market.MarketAssetName}</span></td>
-								<td><span>{market.MarketAssetCode}</span></td>
-								<td><span>{market.MarketAssetID}</span></td>
-								<td><span>{market.MarketAssetType}</span></td>
-								<td><span>{market.BaseCurrency}</span></td>
-								<td><span>{market.BaseCurrencyCode}</span></td>
-								<td><span>{market.BaseCurrencyID}</span></td>
-								<td><span>{market.Active}</span></td>
-							</tr>
-						))}
-						</tbody>
-					</table>
+				<div className="error">{this.state.message}
+					<MarketsTable result={apiJsonFile.result}/>
 				</div>
-			);
-
-		return <h1>Operation Error</h1>
+			)
 	}
 }
 
