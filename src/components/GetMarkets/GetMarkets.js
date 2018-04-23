@@ -37,14 +37,20 @@ class GetMarkets extends React.Component {
 	}
 
 	render() {
-		if (this.state.success)
-			return <MarketsTable result={this.state.result}/>;
-		else
+		if (this.state.success) {
 			return (
-				<div className="error">{this.state.message}
-					<MarketsTable result={apiJsonFile.result}/>
-				</div>
+				<MarketsTable
+					result={this.state.result}
+				/>
 			)
+		} else {
+			return (
+				<MarketsTable
+					result={apiJsonFile.result}
+					message={this.state.message}
+				/>
+			)
+		}
 	}
 }
 

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import '../common/Table.css'
 
 const MarketsTable = (props) => {
-	const result = props.result;
+	const { result, message } = props;
 
 	return (
 		<div className="Table-container">
+			<h5>{message}</h5>
 			<table className="Table">
 				<thead className="Table-head">
 				<tr>
@@ -42,7 +43,8 @@ const MarketsTable = (props) => {
 };
 
 MarketsTable.propTypes = {
-	result: PropTypes.array.isRequired
+	result: PropTypes.array.isRequired,
+	message: PropTypes.string
 };
 
 export default MarketsTable
