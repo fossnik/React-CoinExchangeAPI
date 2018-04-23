@@ -1,6 +1,7 @@
 import React from 'react'
-import { API_URL } from '../config'
+import { API_URL } from '../../config'
 import response from './getmarkets'
+import '../common/Table.css'
 
 class GetMarkets extends React.Component {
 	constructor() {
